@@ -1,6 +1,6 @@
 from devcli import cmd
 from devcli.sh.one_password import OnePassword
-from devcli.utils import MissConfError
+from devcli.framework.error import MissConfError
 
 cli = cmd.cli("Shortcuts for 1Password CLI")
 
@@ -24,6 +24,6 @@ def credential(key: str):
 @cli.command()
 def password(item: str):
     """
-    Will read from 1Password an login entry and return its password
+    Will read from 1Password a login entry and return its password
     """
     cmd.echo(get_op().password(item))

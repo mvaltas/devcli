@@ -1,6 +1,6 @@
 import re
 from typer.testing import CliRunner
-from devcli.cli import cli
+from devcli.main import cli
 
 runner = CliRunner()
 

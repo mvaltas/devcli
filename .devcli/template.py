@@ -25,7 +25,7 @@ def version():
     """
     Example of a command that calls a function on devcli
     """
-    import devcli.cli
+    import devcli.main
     devcli.cli.version()
 
 

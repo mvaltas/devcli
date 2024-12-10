@@ -1,4 +1,4 @@
-from .sh.base import run, capture
+from devcli.framework.shell import run, capture
 from .sh.fs import file_exists, dir_exists
 
 # file system operations

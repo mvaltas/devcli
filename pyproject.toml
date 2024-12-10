@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "devcli"
-version = "0.2.0"
+version = "3.0.0"
 description = "A command line tool to create command line tools"
 authors = ["Marco Valtas"]
 license = "MIT"
@@ -19,7 +19,7 @@ requests = "^2.31.0"
 pytest = "^7.4.3"
 
 [tool.poetry.scripts]
-devcli = "devcli.cli:cli"
+devcli = "devcli.core:cli"
 
 
 [build-system]
