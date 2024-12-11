@@ -23,5 +23,8 @@ def test_passing_verbose_changes_loglevel_to_info(caplog):
     assert any(record.levelname == "INFO" for record in caplog.records)
 
 def test_should_load_dynamic_commands():
-    result = runner.invoke(cli, ['--debug', 'example'])
-    assert "asdf" in result.output
+    # example subcommand works because we have a .devcli in the root
+    # of the project, tests of the subcommand 'example' itself
+    # are in test_example.py
+    result = runner.invoke(cli, ['example'])
+    assert "ping" in result.output

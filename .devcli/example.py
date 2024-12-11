@@ -1,7 +1,7 @@
+from typer import Context
 import devcli.framework as cmd
 
-cli = cmd.new("Simplest example of creating a command")
-
+cli = cmd.new("Examples on how create cli commands with *devcli*")
 
 @cli.command()
 def hello(name: str, rainbow: bool = False):
@@ -23,19 +23,26 @@ def hello(name: str, rainbow: bool = False):
 @cli.command()
 def ping():
     """
-    Replies with a PONG! using basic color from rich text
+    Replies with a PONG!
     """
-    cmd.echo('[green]PONG![/green]')
+    cmd.echo('PONG!')
 
 
 @cli.command()
 def text():
     """
     Demo types of text output you can use
-    out of the box.
+    out of the box as shortcuts.
     """
-    cmd.echo('This is an echo(msg)')
-    cmd.notice('This is a notice(msg)')
-    cmd.warn('This is a warn(msg)')
-    cmd.error('This is an error(msg)')
+    cmd.echo('This is a cmd.echo(msg)')
+    cmd.notice('This is a cmd.notice(msg)')
+    cmd.warn('This is a cmd.warn(msg)')
+    cmd.error('This is a cmd.error(msg)')
 
+
+@cli.command()
+def config(ctx: Context):
+    """
+    Example of access to global configurations
+    """
+    cmd.echo(f"Default devcli config: {ctx.obj['devcli']}")

@@ -1,6 +1,0 @@
-# These are examples of how to define your URLs.
-# Use simple names as keys so that is easy to recall
-# like "board" to point to your team story board.
-
-list[jira]='https://www.atlassian.com/software/jira'
-list[git]='https://github.com'

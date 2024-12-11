@@ -1,6 +1,9 @@
 import os
 
-from devcli.core import project_root, traverse_search
+from typer import Typer
+from typer.testing import CliRunner
+
+from devcli.core import project_root, traverse_search, load_dynamic_commands
 
 
 def test_project_root_resolves_to_right_directory():
@@ -34,3 +37,12 @@ def test_traverse_search_for_directory(fs):
         fs.create_dir(dir)
 
     assert traverse_search('.devcli', '/org/dept/project/module') == expected
+
+def test_load_commands_dynamically():
+    app = Typer()
+    # This should load the example.py subcommand on .devcli
+    load_dynamic_commands(app, project_root('.devcli'))
+    # Executed the example command just loaded
+    result = CliRunner().invoke(app, ["example", "ping"])
+
+    assert "PONG!" in result.output

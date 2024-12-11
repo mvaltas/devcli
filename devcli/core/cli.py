@@ -45,4 +45,4 @@ def main(ctx: Context,
         typer.echo(ctx.get_help())
         raise typer.Exit()
 
-    ctx.config = Config()
+    ctx.obj = Config()
