@@ -53,7 +53,7 @@ def load_dynamic_commands(app: Typer, directory: Path):
             app.add_typer(module.cli, name=module_name)
 
 
-def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [str]:
+def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [Path]:
     logger.debug(f'traverse_search[{target}, {start}]')
 
     search_start_from = Path(start)
@@ -69,7 +69,7 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [str]
     while True:
         path_to_check = search_start_from / target
         if path_to_check.exists():
-            found.append(str(path_to_check))
+            found.append(path_to_check)
 
         if search_start_from.parent == search_start_from:  # Root directory reached
             break
@@ -77,10 +77,10 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [str]
 
     return found
 
-def traverse_load_dynamic_commands(app: Typer, subcommand_dir: str):
-    directories = traverse_search(subcommand_dir)
+def traverse_load_dynamic_commands(app: Typer, subcommand_dir: str, start: Path = Path.cwd()):
+    directories = traverse_search(subcommand_dir, start)
     for d in directories:
-        load_dynamic_commands(app, Path(d))
+        load_dynamic_commands(app, d)
 
 # def load_default_commands(cli: Typer) -> None:
 #     """
