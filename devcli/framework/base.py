@@ -9,7 +9,7 @@ import typer
 from rich import print
 
 
-def cli(description: str = None) -> typer.Typer:
+def new(description: str = None) -> typer.Typer:
     """
     The base of starting a new dynamic command. It
     returns the basic Typer type for command declaration.
@@ -29,22 +29,21 @@ def echo(msg: str):
 
 def error(msg: str):
     """
-    Print a message in red and exits the program with 1 which is
-    handled as error for most situations.
+    Print a message in red
     """
     print(f"[red]{msg}[/red]")
 
 
 def warn(msg: str):
     """
-    Prints a message in yellow and does not stop the execution of the program
+    Prints a message in yellow
     """
     print(f'[yellow]{msg}[/yellow]')
 
 
 def notice(msg: str):
     """
-    Prints a message in cyan, usually as a topic or notice to the user
+    Prints a message in cyan
     """
     print(f'[cyan]{msg}[/cyan]')
 

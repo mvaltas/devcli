@@ -1,2 +1,5 @@
 [a_specific_configuration]
 key = "value"
+
+[overridable_configuration]
+key = "specific_value"

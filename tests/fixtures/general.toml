@@ -1,2 +1,5 @@
 [devcli]
 key =  "value"
+
+[overridable_configuration]
+key = "general_value"
