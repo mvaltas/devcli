@@ -17,8 +17,7 @@ logging.basicConfig(
     level=logging.getLevelName(DEVCLI_LOGLEVEL.upper()))
 
 # debug only available if DEVCLI_LOGLEVEL is defined as "debug"
-_init_logger = logging.getLogger('devcli.core.__init__')
-
+logger = logging.getLogger('devcli.core.__init__')
 
 
 def project_root(filename=None) -> Path:
@@ -29,7 +28,7 @@ def project_root(filename=None) -> Path:
     """
     # this is predicated on the fact we know where this file is
     parent = Path(__file__).resolve().parent.parent.parent
-    _init_logger.debug(f"project_root={parent}")
+    logger.debug(f"project_root={parent}")
     if filename is None:
         return parent
     else:
@@ -38,32 +37,32 @@ def project_root(filename=None) -> Path:
 
 def load_dynamic_commands(app: Typer, directory: Path):
     if not directory.exists():
-        _init_logger.debug(f"couldn't find dir {directory}")
+        logger.debug(f"couldn't find dir {directory}")
         return
 
     for file in directory.glob("*.py"):
-        _init_logger.debug(f"found file: {file}")
+        logger.debug(f"found file: {file}")
         module_name = file.stem  # Get the file name without '.py'
-        _init_logger.debug(f'module: {module_name}')
+        logger.debug(f'module: {module_name}')
         spec = importlib.util.spec_from_file_location(module_name, file)
         module = importlib.util.module_from_spec(spec)
-        _init_logger.debug(f'executing module: {module}')
+        logger.debug(f'executing module: {module}')
         spec.loader.exec_module(module)
         if hasattr(module, 'cli'):
-            _init_logger.debug(f'"cli" attribute found, adding command: {module_name}')
+            logger.debug(f'"cli" attribute found, adding as a subcommand: {module_name}')
             app.add_typer(module.cli, name=module_name)
 
 
 def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [str]:
-    _init_logger.debug(f'traverse_search[{target}, {start}]')
+    logger.debug(f'traverse_search[{target}, {start}]')
 
     search_start_from = Path(start)
     if search_start_from.is_file():
-        _init_logger.debug(f'start was a file, converting to directory')
+        logger.debug(f'start was a file, converting to directory')
         search_start_from = search_start_from.parent
 
     target = Path(target).name
-    _init_logger.debug(f'start search for {target}, from {search_start_from}')
+    logger.debug(f'start search for {target}, from {search_start_from}')
 
     found = [] # results
     # Traverse up the directory tree
@@ -77,6 +76,11 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [str]
         search_start_from = search_start_from.parent
 
     return found
+
+def traverse_load_dynamic_commands(app: Typer, subcommand_dir: str):
+    directories = traverse_search(subcommand_dir)
+    for d in directories:
+        load_dynamic_commands(app, Path(d))
 
 # def load_default_commands(cli: Typer) -> None:
 #     """

@@ -1,36 +1,38 @@
 import logging
-import pathlib
 
 import typer
-from typer import Context
 from rich import print
+from typer import Context
 
-from devcli.core import project_root, load_dynamic_commands #, load_default_commands
 from devcli.config import Config
+from devcli.core import project_root, traverse_load_dynamic_commands
 
 cli = typer.Typer(add_completion=False)
 
-#load_default_commands(cli)
-load_dynamic_commands(cli, pathlib.Path('.devcli'))
+traverse_load_dynamic_commands(cli, '.devcli')
 
-@cli.command()
-def version():
+@cli.command(hidden=True)
+def show_version():
     """
     Show devcli version which is defined in pyproject.toml file
+
     :return: tool.poetry.version
     """
     project_conf = Config().add_config(project_root('pyproject.toml'))
     print(f'devcli version {project_conf['tool.poetry.version']}')
+
+@cli.command(hidden=True)
+def show_config():
+    """
+    Will show all configuration parsed by devcli
+    """
+    print(Config())
 
 
 @cli.callback(invoke_without_command=True)
 def main(ctx: Context,
          debug: bool = typer.Option(False, "--debug", help="Enable debug log"),
          verbose: bool = typer.Option(False, "--verbose", help="Enable info log")):
-    """
-    Main callback that handles global options for devcli. It also setups context with config
-    available for other commands.
-    """
     logger = logging.getLogger()
     # set global log level
     if debug:
@@ -42,7 +44,9 @@ def main(ctx: Context,
 
     # call help on the absence of a command
     if ctx.invoked_subcommand is None:
+        logger.info("no subcommand given, defaulting to help message")
         typer.echo(ctx.get_help())
         raise typer.Exit()
 
+    logger.debug('setting configuration in the subcommand context')
     ctx.obj = Config()

@@ -1,6 +1,11 @@
+###################
+# devcli configuration
+#
+# The following section is for global options for devcli
+# this name space should not be used by dynamic commands
+# to avoid conflicts
 [devcli]
 
-fallback_command = "false"
 
 [devcli.secret]
 
