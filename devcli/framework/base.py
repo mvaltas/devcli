@@ -1,5 +1,5 @@
 """
-devcli.command is a collection of helper functions for tool commands
+devcli.framework is a collection of helper functions for tool commands
 so that they don't have to reimplement common tasks related to a command
 work.
 """

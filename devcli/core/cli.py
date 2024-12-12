@@ -7,17 +7,25 @@ from typer import Context
 from devcli.config import Config
 from devcli.core import (project_root,
                          traverse_load_dynamic_commands,
+                         traverse_search,
                          load_dynamic_commands)
 
 cli = typer.Typer(add_completion=False)
 
+# config is a singleton to be
+# available to all parts of the system
 boot_conf = Config()
 
+# load user defined configurations in opposite order
+for d in reversed(traverse_search('.devcli')):
+    boot_conf.add_config(d / 'devcli.toml')
+
+# should we load our own builtin commands?
 if boot_conf['devcli.enable_builtin_commands']:
     load_dynamic_commands(cli, project_root('devcli/commands'))
 
+# load use defined commands
 traverse_load_dynamic_commands(cli, '.devcli')
-
 
 @cli.command(hidden=True)
 def show_version():
@@ -26,16 +34,28 @@ def show_version():
 
     :return: tool.poetry.version
     """
-    project_conf = Config().add_config(project_root('pyproject.toml'))
+    project_conf = boot_conf.add_config(project_root('pyproject.toml'))
     print(f'devcli version {project_conf['tool.poetry.version']}')
 
 
 @cli.command(hidden=True)
-def show_config():
+def show_config(explain: bool = False):
     """
-    Will show all configuration parsed by devcli
+    Display the current configuration parsed by devcli.
+
+    If the `explain` parameter is set to True, the function will provide a detailed explanation
+    of the configuration files that were loaded, including the order in which they were processed
+    and any overrides that occurred.
+
+    Args:
+        explain (bool, optional): If True, provide a detailed explanation of the configuration
+                                  loading process. Defaults to False.
     """
-    print(Config())
+    if explain:
+        print("[cyan]Explaining configurations:[/cyan]")
+        print(boot_conf.audit())
+    else:
+        print(boot_conf)
 
 
 @cli.callback(invoke_without_command=True)
