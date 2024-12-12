@@ -1,4 +1,4 @@
-devcli - A command line tool to clear command line tools
+devcli - A command line tool to create command line tools
 =========================================================
 
 Why
