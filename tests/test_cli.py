@@ -1,5 +1,4 @@
 import re
-import toml
 
 from typer.testing import CliRunner
 
@@ -32,10 +31,8 @@ def test_should_load_dynamic_commands():
 
 def test_show_config():
     result = runner.invoke(cli, ['show-config'])
-    try:
-        assert 'devcli' in result.output
-    except toml.TomlDecodeError:
-        assert False, "Not a valid TOML output"
+    assert '[devcli]' in result.output
+
 
 def test_show_config_audit_log():
     result = runner.invoke(cli, ['show-config', '--explain'])
