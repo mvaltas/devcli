@@ -1,6 +1,7 @@
 import importlib.util
 import logging
 import os
+import sys
 from pathlib import Path
 
 from typer import Typer
@@ -45,6 +46,12 @@ def load_dynamic_commands(app: Typer, directory: Path):
     if not directory.exists():
         logger.debug(f"couldn't find dir {directory}")
         return
+
+    # adds directory as part of the loader path, this
+    # allows commands to use relative import for their
+    # own functions
+    if directory not in sys.path:
+        sys.path.insert(0, str(directory))
 
     for file in directory.glob("*.py"):
         logger.debug(f"found file: {file}")

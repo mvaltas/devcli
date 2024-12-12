@@ -1,0 +1,3 @@
+This folder does not contain a __init__.py on purpose. Only commands
+should be stored here and will be loaded dynamically by *devcli*. Also
+no code defined in here should be imported somewhere else.

@@ -25,7 +25,7 @@ def _prepare_command(command):
     return final_command
 
 
-def create_process(command: str):
+def create_process(command: str, cwd: str=os.curdir):
     logging.info(f'run:{command}')
     final_command = _prepare_command(command)
     logging.debug(f'final_command: {final_command}')
@@ -33,6 +33,7 @@ def create_process(command: str):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT,
                             env=os.environ,
+                            cwd=cwd,
                             bufsize=1,
                             universal_newlines=True,
                             text=True)
@@ -71,7 +72,7 @@ def iter_for(commands):
         return iter_for({alias: commands})
 
 
-def run(command: Union[str, List[str], dict]):
+def run(command: Union[str, List[str], dict], cwd: str=os.curdir):
     """
     A basic shell execution that will execute the command and directly
     output its messages.
@@ -82,7 +83,7 @@ def run(command: Union[str, List[str], dict]):
     """
     procs = []
     for alias, cmd in iter_for(command):
-        process = create_process(cmd)
+        process = create_process(cmd, cwd)
         thread = start_process_thread(process, styled_text(f"{alias}", f'color({random.randint(1, 231)})'))
         procs.append((process, thread))
     for proc, thread in procs:
