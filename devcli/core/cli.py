@@ -5,11 +5,19 @@ from rich import print
 from typer import Context
 
 from devcli.config import Config
-from devcli.core import project_root, traverse_load_dynamic_commands
+from devcli.core import (project_root,
+                         traverse_load_dynamic_commands,
+                         load_dynamic_commands)
 
 cli = typer.Typer(add_completion=False)
 
+boot_conf = Config()
+
+if boot_conf['devcli.enable_builtin_commands']:
+    load_dynamic_commands(cli, project_root('devcli/commands'))
+
 traverse_load_dynamic_commands(cli, '.devcli')
+
 
 @cli.command(hidden=True)
 def show_version():
@@ -20,6 +28,7 @@ def show_version():
     """
     project_conf = Config().add_config(project_root('pyproject.toml'))
     print(f'devcli version {project_conf['tool.poetry.version']}')
+
 
 @cli.command(hidden=True)
 def show_config():

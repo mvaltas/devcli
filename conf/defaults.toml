@@ -6,7 +6,19 @@
 # to avoid conflicts
 [devcli]
 
+# whether devcli should load its own subcommands
+enable_builtin_commands = true
 
-[devcli.secret]
+#############################
+# op command is a shortcut for some OnePassword cli calls
+[devcli.commands.op]
 
-handler = "1Password"
+# The account ID you want to use. 1Password can be logged in
+# more than one account, you can use `op account list` to
+# find your account id.
+account = "OUR_ACCOUNT_ID"
+
+# Optional: which vault use by default
+# You can list your vaulst with `op vault list`
+# by default vault is set to 'Private'
+# vault = "Private"

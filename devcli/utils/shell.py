@@ -4,9 +4,17 @@ import random
 import shlex
 import subprocess
 import threading
+from io import StringIO
 from typing import Union, List
 
-from devcli.utils import styled_text
+from rich.console import Console
+
+
+def styled_text(text: str, sty: str = None, end: str = ""):
+    out = StringIO()
+    console = Console(file=out, force_terminal=True)
+    console.print(text, style=sty, end=end)
+    return out.getvalue()
 
 
 def _prepare_command(command):

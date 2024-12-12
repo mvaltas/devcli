@@ -82,7 +82,7 @@ def test_traverse_load_commands_dynamically(fs_patch_open):
     fs_patch_open.create_file('/org/dept/project/.devcli/project.py', contents=DYN_COMMAND)
 
     app = Typer()
-    # when we start our search from module directory
+    # we start our search from module directory
     traverse_load_dynamic_commands(app, '.devcli', Path.cwd())
 
     # both, project and module commands are available to run

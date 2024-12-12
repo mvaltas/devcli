@@ -48,13 +48,13 @@ def notice(msg: str):
     print(f'[cyan]{msg}[/cyan]')
 
 
-def stop(msg: str, exit: int = 1):
+def stop(msg: str, exit_code: int = 1):
     """
     Prints a message in red if defined and stops the execution
     :param msg:
-    :param exit: Optional exit number, defaults to 1
+    :param exit_code: Optional exit number, defaults to 1
     """
     if msg is not None:
         error(msg)
 
-    sys.exit(exit)
+    sys.exit(exit_code)

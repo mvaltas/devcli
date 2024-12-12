@@ -36,6 +36,7 @@ def project_root(filename=None) -> Path:
 
 
 def load_dynamic_commands(app: Typer, directory: Path):
+    logger.debug(f"load_dynamic_commands:{directory}")
     if not directory.exists():
         logger.debug(f"couldn't find dir {directory}")
         return

@@ -1,6 +1,6 @@
 import logging
 
-from devcli.framework.shell import ShellExecutable, capture
+from devcli.utils.shell import ShellExecutable, capture
 
 
 class OnePassword(ShellExecutable):
