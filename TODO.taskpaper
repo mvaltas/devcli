@@ -1,7 +1,12 @@
-devcli:
+python_version:
   - Python initial version @done
   - installation capability @done
   - project specific overrides of configuration @done
   - project specific commands @done
-  - plugin capability
-  - helper for shell execution
+  - traverse for configuration files @done
+  - traverse for commands @done
+  - clean up zsh files
+  - add a CONTRIBUTING file
+  - update README file
+
+

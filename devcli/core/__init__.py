@@ -10,7 +10,7 @@ LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 DEVCLI_LOGLEVEL = os.environ.get('DEVCLI_LOGLEVEL', "WARNING")
 
 # user default configuration path
-XDG_CONFIG_HOME = os.environ.get('XDG_CONFIG_HOME', Path.home() / '.config' )
+XDG_CONFIG_HOME = os.environ.get('XDG_CONFIG_HOME', Path.home() / '.config')
 
 logging.basicConfig(
     format=LOG_FORMAT,
@@ -36,6 +36,11 @@ def project_root(filename=None) -> Path:
 
 
 def load_dynamic_commands(app: Typer, directory: Path):
+    """
+    scan a given directory for .py files and check if they
+    contain the attribute 'cli', if so, it will consider
+    a subcommand and add to Typer dynamically.
+    """
     logger.debug(f"load_dynamic_commands:{directory}")
     if not directory.exists():
         logger.debug(f"couldn't find dir {directory}")
@@ -55,6 +60,11 @@ def load_dynamic_commands(app: Typer, directory: Path):
 
 
 def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [Path]:
+    """
+    Given a target and a start point, it will traverse upwards the directory
+    tree until getting to root directory and return a list of the
+    locations where 'target' was found.
+    """
     logger.debug(f'traverse_search[{target}, {start}]')
 
     search_start_from = Path(start)
@@ -65,7 +75,7 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [Path
     target = Path(target).name
     logger.debug(f'start search for {target}, from {search_start_from}')
 
-    found = [] # results
+    found = []  # results
     # Traverse up the directory tree
     while True:
         path_to_check = search_start_from / target
@@ -78,29 +88,11 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [Path
 
     return found
 
+
 def traverse_load_dynamic_commands(app: Typer, subcommand_dir: str, start: Path = Path.cwd()):
+    """
+    Uses traverse_search to load commands dynamically
+    """
     directories = traverse_search(subcommand_dir, start)
     for d in directories:
         load_dynamic_commands(app, d)
-
-# def load_default_commands(cli: Typer) -> None:
-#     """
-#     This function is in charge of loading the default commands for devcli.
-#     We don't use the dynamic loading in this case to save time and control
-#     which ones should be loaded or not.
-#
-#     The command will be defined as its name, for example 'devcli.command.ci' will
-#     be defined as 'ci'
-#
-#     :param cli: a Typer object that allow for `.add_typer` calls
-#     :return: None
-#     """
-#     # default commands that can be reused
-#     from devcli.command import (
-#         ci,
-#         op,
-#     )
-#     commands = [ci, op]
-#     for c in commands:
-#         _init_logger.debug(f'loading default command ({c.__name__})')
-#         cli.add_typer(c.cli, name=c.__name__.split('.')[-1])
