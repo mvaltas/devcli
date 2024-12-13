@@ -1,4 +1,4 @@
-@test *options:
+@test *options: lint
   poetry run pytest {{options}}
 
 @lint:

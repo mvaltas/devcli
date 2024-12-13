@@ -21,8 +21,8 @@ def setup():
 
 def test_list():
     result = url("list")
-    assert "devcli: https://github.com/mvaltas/devcli" in result.output
-    assert "duck: https://duckduckgo.com" in result.output
+    assert "https://github.com/mvaltas/devcli" in result.output
+    assert "https://duckduckgo.com" in result.output
 
 
 def test_basic_search():

@@ -26,6 +26,12 @@ def fuzzy_search(urls: dict, key: str):
     return partial_match
 
 
+def display_urls(urls: dict):
+    max_key_length = max(len(k) for k in urls.keys())
+    for k, v in urls.items():
+        cmd.echo(f"{k:<{max_key_length}}: {v}")
+
+
 @cli.command()
 def open(ctx: Context, key: str):
     """
@@ -46,8 +52,7 @@ def list(ctx: Context):
     """
     urls = ctx.obj[f"devcli.commands.url"]
     cmd.info("Available URLs:\n")
-    for k, v in urls.items():
-        cmd.echo(f"{k}: {v}")
+    display_urls(urls)
 
 
 @cli.command()
@@ -56,6 +61,8 @@ def search(ctx: Context, key: str):
     Search for a URL in the configuration
     """
     cmd.info(f"Searching for '[green]{key}[/green]' in URLs\n")
+    found = {}
     for k, v in ctx.obj[f"devcli.commands.url"].items():
         if key in k or key in v:
-            cmd.echo(f"{k}: {v}")
+            found.update({k: v})
+    display_urls(found)
