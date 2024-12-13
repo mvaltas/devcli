@@ -6,19 +6,19 @@ from pathlib import Path
 
 from typer import Typer
 
-LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
-DEVCLI_LOGLEVEL = os.environ.get('DEVCLI_LOGLEVEL', "WARNING")
+DEVCLI_LOGLEVEL = os.environ.get("DEVCLI_LOGLEVEL", "WARNING")
 
 # user default configuration path
-XDG_CONFIG_HOME = os.environ.get('XDG_CONFIG_HOME', Path.home() / '.config')
+XDG_CONFIG_HOME = os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")
 
 logging.basicConfig(
-    format=LOG_FORMAT,
-    level=logging.getLevelName(DEVCLI_LOGLEVEL.upper()))
+    format=LOG_FORMAT, level=logging.getLevelName(DEVCLI_LOGLEVEL.upper())
+)
 
 # debug only available if DEVCLI_LOGLEVEL is defined as "debug"
-logger = logging.getLogger('devcli.core.__init__')
+logger = logging.getLogger("devcli.core.__init__")
 
 
 def project_root(filename=None) -> Path:
@@ -56,13 +56,15 @@ def load_dynamic_commands(app: Typer, directory: Path):
     for file in directory.glob("*.py"):
         logger.debug(f"found file: {file}")
         module_name = file.stem  # Get the file name without '.py'
-        logger.debug(f'module: {module_name}')
+        logger.debug(f"module: {module_name}")
         spec = importlib.util.spec_from_file_location(module_name, file)
         module = importlib.util.module_from_spec(spec)
-        logger.debug(f'executing module: {module}')
+        logger.debug(f"executing module: {module}")
         spec.loader.exec_module(module)
-        if hasattr(module, 'cli'):
-            logger.debug(f'"cli" attribute found, adding as a subcommand: {module_name}')
+        if hasattr(module, "cli"):
+            logger.debug(
+                f'"cli" attribute found, adding as a subcommand: {module_name}'
+            )
             app.add_typer(module.cli, name=module_name)
 
 
@@ -72,15 +74,15 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [Path
     tree until getting to root directory and return a list of the
     locations where 'target' was found.
     """
-    logger.debug(f'traverse_search[{target}, {start}]')
+    logger.debug(f"traverse_search[{target}, {start}]")
 
     search_start_from = Path(start)
     if search_start_from.is_file():
-        logger.debug(f'start was a file, converting to directory')
+        logger.debug(f"start was a file, converting to directory")
         search_start_from = search_start_from.parent
 
     target = Path(target).name
-    logger.debug(f'start search for {target}, from {search_start_from}')
+    logger.debug(f"start search for {target}, from {search_start_from}")
 
     found = []  # results
     # Traverse up the directory tree
@@ -96,7 +98,9 @@ def traverse_search(target: str | Path, start: str | Path = Path.cwd()) -> [Path
     return found
 
 
-def traverse_load_dynamic_commands(app: Typer, subcommand_dir: str, start: Path = Path.cwd()):
+def traverse_load_dynamic_commands(
+    app: Typer, subcommand_dir: str, start: Path = Path.cwd()
+):
     """
     Uses traverse_search to load commands dynamically
     """

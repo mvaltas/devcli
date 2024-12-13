@@ -1,5 +1,6 @@
 from devcli.framework.error import MissConfError
 
+
 def test_miss_conf_error_message():
     error = MissConfError("subcommand", "configuration_key", "example_value")
     expected_message = (

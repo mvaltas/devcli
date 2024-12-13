@@ -20,38 +20,40 @@ def styled_text(text: str, sty: str = None, end: str = ""):
 def _prepare_command(command):
     quoted_command = shlex.quote(command)
     # attempt to use user's shell, fallback to /bin/sh
-    user_shell = os.environ.get('SHELL', '/bin/sh')
+    user_shell = os.environ.get("SHELL", "/bin/sh")
     final_command = f"{user_shell} -c {quoted_command}"
     return final_command
 
 
-def create_process(command: str, cwd: str=os.curdir):
-    logging.info(f'run:{command}')
+def create_process(command: str, cwd: str = os.curdir):
+    logging.info(f"run:{command}")
     final_command = _prepare_command(command)
-    logging.debug(f'final_command: {final_command}')
-    proc = subprocess.Popen(final_command, shell=True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            env=os.environ,
-                            cwd=cwd,
-                            bufsize=1,
-                            universal_newlines=True,
-                            text=True)
+    logging.debug(f"final_command: {final_command}")
+    proc = subprocess.Popen(
+        final_command,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        env=os.environ,
+        cwd=cwd,
+        bufsize=1,
+        universal_newlines=True,
+        text=True,
+    )
     return proc
 
 
 def process_output(process, process_name: str):
     while True:
         output = process.stdout.readline()
-        if process.poll() is not None and output == '':
+        if process.poll() is not None and output == "":
             break
         if output:
             print(f"{process_name}: {output.strip()}")
 
 
 def start_process_thread(process, alias):
-    thread = threading.Thread(target=process_output,
-                              args=(process, alias))
+    thread = threading.Thread(target=process_output, args=(process, alias))
     thread.start()
     return thread
 
@@ -68,11 +70,11 @@ def iter_for(commands):
     else:
         # since commands is a single command, split any arguments
         # and get the command name as its own alias
-        alias = os.path.basename(commands.split(' ')[0])
+        alias = os.path.basename(commands.split(" ")[0])
         return iter_for({alias: commands})
 
 
-def run(command: Union[str, List[str], dict], cwd: str=os.curdir):
+def run(command: Union[str, List[str], dict], cwd: str = os.curdir):
     """
     A basic shell execution that will execute the command and directly
     output its messages.
@@ -84,7 +86,9 @@ def run(command: Union[str, List[str], dict], cwd: str=os.curdir):
     procs = []
     for alias, cmd in iter_for(command):
         process = create_process(cmd, cwd)
-        thread = start_process_thread(process, styled_text(f"{alias}", f'color({random.randint(1, 231)})'))
+        thread = start_process_thread(
+            process, styled_text(f"{alias}", f"color({random.randint(1, 231)})")
+        )
         procs.append((process, thread))
     for proc, thread in procs:
         proc.wait()
@@ -96,10 +100,10 @@ def capture(command: str) -> str:
     A run which captures the output and returns it, it won't display the stdout
     of the command during its execution.
     """
-    logging.debug(f'running shell: {command}')
+    logging.debug(f"running shell: {command}")
     final_command = _prepare_command(command)
     result = subprocess.run(final_command, shell=True, capture_output=True, text=True)
-    logging.debug(f'return code: {result.returncode}')
+    logging.debug(f"return code: {result.returncode}")
     return result.stdout
 
 

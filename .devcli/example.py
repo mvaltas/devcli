@@ -3,6 +3,7 @@ import devcli.framework as cmd
 
 cli = cmd.new("Examples on how create cli commands with *devcli*")
 
+
 @cli.command()
 def hello(name: str, rainbow: bool = False):
     """
@@ -19,13 +20,12 @@ def hello(name: str, rainbow: bool = False):
     cmd.echo(f"Hello, {name}!")
 
 
-
 @cli.command()
 def ping():
     """
     Replies with a PONG!
     """
-    cmd.echo('PONG!')
+    cmd.echo("PONG!")
 
 
 @cli.command()
@@ -34,10 +34,10 @@ def text():
     Demo types of text output you can use
     out of the box as shortcuts.
     """
-    cmd.echo('This is a cmd.echo(msg)')
-    cmd.notice('This is a cmd.notice(msg)')
-    cmd.warn('This is a cmd.warn(msg)')
-    cmd.error('This is a cmd.error(msg)')
+    cmd.echo("This is a cmd.echo(msg)")
+    cmd.notice("This is a cmd.notice(msg)")
+    cmd.warn("This is a cmd.warn(msg)")
+    cmd.error("This is a cmd.error(msg)")
 
 
 @cli.command()

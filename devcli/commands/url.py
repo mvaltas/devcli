@@ -6,6 +6,7 @@ from devcli.framework.error import MissConfError
 
 cli = cmd.new("Shortcuts URLs bookmarking")
 
+
 def fuzzy_search(urls: dict, key: str):
     """
     A simple fuzzy search for the URL key, if no exact
@@ -30,7 +31,7 @@ def open(ctx: Context, key: str):
     """
     Open a URL from the configuration
     """
-    url = fuzzy_search(ctx.obj[f'devcli.commands.url'], key)
+    url = fuzzy_search(ctx.obj[f"devcli.commands.url"], key)
     if url is None:
         raise MissConfError(topic="devcli.commands.url", entry=key, example="VALID_URL")
 
@@ -43,7 +44,7 @@ def list(ctx: Context):
     """
     List all the URLs in the configuration
     """
-    urls = ctx.obj[f'devcli.commands.url']
+    urls = ctx.obj[f"devcli.commands.url"]
     cmd.notice("Available URLs:\n")
     for k, v in urls.items():
         cmd.echo(f"{k}: {v}")
@@ -55,6 +56,6 @@ def search(ctx: Context, key: str):
     Search for a URL in the configuration
     """
     cmd.notice(f"Searching for '[green]{key}[/green]' in URLs\n")
-    for k, v in ctx.obj[f'devcli.commands.url'].items():
+    for k, v in ctx.obj[f"devcli.commands.url"].items():
         if key in k or key in v:
             cmd.echo(f"{k}: {v}")

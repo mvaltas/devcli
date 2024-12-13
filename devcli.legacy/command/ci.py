@@ -7,5 +7,4 @@ cli = cmd.cli("General CI command line")
 
 @cli.command()
 def status(ctx: Context, job: str):
-    cmd.echo(f'CI status')
-
+    cmd.echo(f"CI status")

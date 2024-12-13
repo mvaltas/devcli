@@ -5,10 +5,12 @@ from rich import print
 from typer import Context
 
 from devcli.config import Config
-from devcli.core import (project_root,
-                         traverse_load_dynamic_commands,
-                         traverse_search,
-                         load_dynamic_commands)
+from devcli.core import (
+    project_root,
+    traverse_load_dynamic_commands,
+    traverse_search,
+    load_dynamic_commands,
+)
 
 cli = typer.Typer(add_completion=False)
 
@@ -17,15 +19,16 @@ cli = typer.Typer(add_completion=False)
 boot_conf = Config()
 
 # load user defined configurations in opposite order
-for d in reversed(traverse_search('.devcli')):
-    boot_conf.add_config(d / 'devcli.toml')
+for d in reversed(traverse_search(".devcli")):
+    boot_conf.add_config(d / "devcli.toml")
 
 # should we load our own builtin commands?
-if boot_conf['devcli.enable_builtin_commands']:
-    load_dynamic_commands(cli, project_root('devcli/commands'))
+if boot_conf["devcli.enable_builtin_commands"]:
+    load_dynamic_commands(cli, project_root("devcli/commands"))
 
 # load use defined commands
-traverse_load_dynamic_commands(cli, '.devcli')
+traverse_load_dynamic_commands(cli, ".devcli")
+
 
 @cli.command(hidden=True)
 def show_version():
@@ -34,8 +37,8 @@ def show_version():
 
     :return: tool.poetry.version
     """
-    project_conf = boot_conf.add_config(project_root('pyproject.toml'))
-    print(f'devcli version {project_conf['tool.poetry.version']}')
+    project_conf = boot_conf.add_config(project_root("pyproject.toml"))
+    print(f"devcli version {project_conf['tool.poetry.version']}")
 
 
 @cli.command(hidden=True)
@@ -59,9 +62,11 @@ def show_config(explain: bool = False):
 
 
 @cli.callback(invoke_without_command=True)
-def main(ctx: Context,
-         debug: bool = typer.Option(False, "--debug", help="Enable debug log"),
-         verbose: bool = typer.Option(False, "--verbose", help="Enable info log")):
+def main(
+    ctx: Context,
+    debug: bool = typer.Option(False, "--debug", help="Enable debug log"),
+    verbose: bool = typer.Option(False, "--verbose", help="Enable info log"),
+):
     logger = logging.getLogger()
     # set global log level
     if debug:
@@ -77,5 +82,5 @@ def main(ctx: Context,
         typer.echo(ctx.get_help())
         raise typer.Exit()
 
-    logger.debug('setting configuration in the subcommand context')
+    logger.debug("setting configuration in the subcommand context")
     ctx.obj = Config()

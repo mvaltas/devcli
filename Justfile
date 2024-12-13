@@ -4,6 +4,9 @@
 @lint:
   poetry run black . --check
 
+@format:
+  poetry run black .
+
 @build:
   poetry build --format=wheel
 

@@ -3,6 +3,7 @@ devcli.framework is a collection of helper functions for tool commands
 so that they don't have to reimplement common tasks related to a command
 work.
 """
+
 import sys
 
 import typer
@@ -38,14 +39,14 @@ def warn(msg: str):
     """
     Prints a message in yellow
     """
-    print(f'[yellow]{msg}[/yellow]')
+    print(f"[yellow]{msg}[/yellow]")
 
 
 def notice(msg: str):
     """
     Prints a message in cyan
     """
-    print(f'[cyan]{msg}[/cyan]')
+    print(f"[cyan]{msg}[/cyan]")
 
 
 def stop(msg: str, exit_code: int = 1):

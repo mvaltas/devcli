@@ -9,14 +9,16 @@ cli = cmd.new("Shortcuts for 1Password CLI")
 
 def get_op(config):
     # vault is optional and defaults to 'Private' on OnePassword
-    vault = config['devcli.commands.op.vault']
+    vault = config["devcli.commands.op.vault"]
     if vault is None:
-        vault = 'Private'
+        vault = "Private"
 
     # account is mandatory for op cli to work
-    acct = config['devcli.commands.op.account']
+    acct = config["devcli.commands.op.account"]
     if acct is None:
-        raise MissConfError(topic="devcli.commands.op", entry="account", example="VALID_OP_ACCOUNT")
+        raise MissConfError(
+            topic="devcli.commands.op", entry="account", example="VALID_OP_ACCOUNT"
+        )
     return OnePassword(acct, vault=vault)
 
 
