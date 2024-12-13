@@ -28,7 +28,7 @@ def fuzzy_search(urls: dict, key: str):
 
 def display_urls(urls: dict):
     max_key_length = max(len(k) for k in urls.keys())
-    for k, v in urls.items():
+    for k, v in sorted(urls.items()):
         cmd.echo(f"{k:<{max_key_length}}: {v}")
 
 
