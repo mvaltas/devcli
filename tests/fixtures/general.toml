@@ -6,6 +6,7 @@ key = "general_value"
 
 [devcli.commands.url]
 
+devcli = "https://github.com/mvaltas/devcli"
 google = "https://google.com"
 duck   = "https://duckduckgo.com"
 bing   = "https://bing.com"

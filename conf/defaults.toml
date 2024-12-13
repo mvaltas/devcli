@@ -16,7 +16,7 @@ enable_builtin_commands = true
 # The account ID you want to use. 1Password can be logged in
 # more than one account, you can use `op account list` to
 # find your account id.
-account = "OUR_ACCOUNT_ID"
+# account = "OUR_ACCOUNT_ID"
 
 # Optional: which vault use by default
 # You can list your vaulst with `op vault list`
@@ -29,4 +29,5 @@ account = "OUR_ACCOUNT_ID"
 # for the URL you want to use
 [devcli.commands.url]
 
-devcli = "https://github.com/mvaltas/devcli"
+# devcli = "https://github.com/mvaltas/devcli"
+# duck   = "https://duckduckgo.com"
