@@ -3,3 +3,9 @@ key =  "value"
 
 [overridable_configuration]
 key = "general_value"
+
+[devcli.commands.url]
+
+google = "https://google.com"
+duck   = "https://duckduckgo.com"
+bing   = "https://bing.com"
