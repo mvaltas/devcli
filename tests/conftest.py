@@ -5,10 +5,12 @@ from devcli.core.cli import cli
 
 runner = CliRunner()
 
+
 def invoke_command(cmd: str = None):
     # pre-prepare a command that will be invoked several times
     # with different parameters
     return lambda *params: runner.invoke(cli, ([cmd] if cmd else []) + list(params))
+
 
 @pytest.fixture
 def setup_cmd():

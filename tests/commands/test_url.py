@@ -14,7 +14,7 @@ def setup(setup_cmd):
     Config().add_config(project_root("tests/fixtures/general.toml"))
 
     global url
-    url = setup_cmd('url')
+    url = setup_cmd("url")
 
 
 def test_list():

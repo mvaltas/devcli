@@ -2,7 +2,7 @@
   poetry run pytest {{options}}
 
 @lint:
-  poetry run black . --check
+  poetry run black . --check --diff --color
 
 @format:
   poetry run black .

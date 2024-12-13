@@ -4,7 +4,7 @@ import pytest
 @pytest.fixture(autouse=True)
 def setup(setup_cmd):
     global example
-    example = setup_cmd('example')
+    example = setup_cmd("example")
 
 
 def test_ping():

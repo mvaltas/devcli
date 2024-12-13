@@ -33,7 +33,7 @@ def test_should_load_dynamic_commands():
     # example subcommand works because we have a .devcli in the root
     # of the project, tests of the subcommand 'example' itself
     # are in test_example.py
-    result = devcli('example')
+    result = devcli("example")
     assert "ping" in result.output
 
 
