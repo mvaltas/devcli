@@ -5,8 +5,15 @@ python_version:
   - project specific commands @done
   - traverse for configuration files @done
   - traverse for commands @done
-  - clean up zsh files
-  - add a CONTRIBUTING file
-  - update README file
+  - clean up zsh files @done
+  - add a CONTRIBUTING file @done
+  - update README file @done
+
+url:
+  - display / --raw to to output only the URL and not the key?
+  
+global:
+  - --quiet parameter to suppress cmd.info() messages? 
+
 
 

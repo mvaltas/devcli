@@ -1,22 +1,20 @@
 from unittest.mock import patch
+
 import pytest
-from typer.testing import CliRunner
 
-from devcli.core.cli import cli
 from devcli.framework.errors import MissConfError
-
-runner = CliRunner()
-
-url = lambda *params: runner.invoke(cli, ["url"] + list(params))
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(setup_cmd):
     from devcli.config import Config
     from devcli.core import project_root
 
     # loads testing configuration
     Config().add_config(project_root("tests/fixtures/general.toml"))
+
+    global url
+    url = setup_cmd('url')
 
 
 def test_list():

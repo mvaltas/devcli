@@ -1,10 +1,10 @@
-from typer.testing import CliRunner
+import pytest
 
-from devcli.core.cli import cli
 
-runner = CliRunner()
-
-example = lambda *params: runner.invoke(cli, ["example"] + list(params))
+@pytest.fixture(autouse=True)
+def setup(setup_cmd):
+    global example
+    example = setup_cmd('example')
 
 
 def test_ping():
