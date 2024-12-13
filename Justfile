@@ -11,6 +11,5 @@
   pipx install --force dist/devcli*.whl
 
 @check: install
-  devcli template ping
   devcli example ping
-  -devcli example version
+  -devcli show-version
