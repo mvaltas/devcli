@@ -28,7 +28,7 @@ def test_hello_text_example():
     result = example("text")
     expected_output = (
         "This is a cmd.echo(msg)\n"
-        "This is a cmd.notice(msg)\n"
+        "This is a cmd.info(msg)\n"
         "This is a cmd.warn(msg)\n"
         "This is a cmd.error(msg)\n"
     )
