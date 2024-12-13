@@ -2,7 +2,7 @@ from typer import Context
 
 import devcli.framework as cmd
 import devcli.utils.shell as shell
-from devcli.framework.error import MissConfError
+from devcli.framework.errors import MissConfError
 
 cli = cmd.new("Shortcuts URLs bookmarking")
 
@@ -35,7 +35,7 @@ def open(ctx: Context, key: str):
     if url is None:
         raise MissConfError(topic="devcli.commands.url", entry=key, example="VALID_URL")
 
-    cmd.notice(f"Opening '{url}'")
+    cmd.info(f"Opening '{url}'")
     shell.run(f"open '{url}'")
 
 
@@ -45,7 +45,7 @@ def list(ctx: Context):
     List all the URLs in the configuration
     """
     urls = ctx.obj[f"devcli.commands.url"]
-    cmd.notice("Available URLs:\n")
+    cmd.info("Available URLs:\n")
     for k, v in urls.items():
         cmd.echo(f"{k}: {v}")
 
@@ -55,7 +55,7 @@ def search(ctx: Context, key: str):
     """
     Search for a URL in the configuration
     """
-    cmd.notice(f"Searching for '[green]{key}[/green]' in URLs\n")
+    cmd.info(f"Searching for '[green]{key}[/green]' in URLs\n")
     for k, v in ctx.obj[f"devcli.commands.url"].items():
         if key in k or key in v:
             cmd.echo(f"{k}: {v}")

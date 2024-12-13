@@ -35,7 +35,7 @@ def text():
     out of the box as shortcuts.
     """
     cmd.echo("This is a cmd.echo(msg)")
-    cmd.notice("This is a cmd.notice(msg)")
+    cmd.info("This is a cmd.info(msg)")
     cmd.warn("This is a cmd.warn(msg)")
     cmd.error("This is a cmd.error(msg)")
 

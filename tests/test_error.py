@@ -1,4 +1,4 @@
-from devcli.framework.error import MissConfError
+from devcli.framework.errors import MissConfError
 
 
 def test_miss_conf_error_message():

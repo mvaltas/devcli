@@ -3,7 +3,7 @@ import pytest
 from typer.testing import CliRunner
 
 from devcli.core.cli import cli
-from devcli.framework.error import MissConfError
+from devcli.framework.errors import MissConfError
 
 runner = CliRunner()
 

@@ -1,7 +1,7 @@
 from typer import Context
 
 import devcli.framework as cmd
-from devcli.framework.error import MissConfError
+from devcli.framework.errors import MissConfError
 from devcli.utils.one_password import OnePassword
 
 cli = cmd.new("Shortcuts for 1Password CLI")

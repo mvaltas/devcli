@@ -42,7 +42,7 @@ def warn(msg: str):
     print(f"[yellow]{msg}[/yellow]")
 
 
-def notice(msg: str):
+def info(msg: str):
     """
     Prints a message in cyan
     """

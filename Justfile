@@ -7,6 +7,9 @@
 @format:
   poetry run black .
 
+@update:
+  poetry update
+
 @build:
   poetry build --format=wheel
 
@@ -16,3 +19,4 @@
 @check: install
   devcli example ping
   -devcli show-version
+  -devcli show-config
