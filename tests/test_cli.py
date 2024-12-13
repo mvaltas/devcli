@@ -24,8 +24,17 @@ def test_passing_debug_changes_loglevel_to_debug(caplog):
     assert any(record.levelname == "DEBUG" for record in caplog.records)
 
 
+def test_passing_debug_short_flag_changes_loglevel_to_debug(caplog):
+    devcli("-d", "show-version")
+    assert any(record.levelname == "DEBUG" for record in caplog.records)
+
+
 def test_passing_verbose_changes_loglevel_to_info(caplog):
     devcli("--verbose", "show-version")
+    assert any(record.levelname == "INFO" for record in caplog.records)
+
+def test_passing_verbose_short_flag_changes_loglevel_to_info(caplog):
+    devcli("-v", "show-version")
     assert any(record.levelname == "INFO" for record in caplog.records)
 
 

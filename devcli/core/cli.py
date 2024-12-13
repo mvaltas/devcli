@@ -64,8 +64,8 @@ def show_config(explain: bool = False):
 @cli.callback(invoke_without_command=True)
 def main(
     ctx: Context,
-    debug: bool = typer.Option(False, "--debug", help="Enable debug log"),
-    verbose: bool = typer.Option(False, "--verbose", help="Enable info log"),
+    debug: bool = typer.Option(False, "--debug", "-d", help="Enable debug log"),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable info log"),
 ):
     logger = logging.getLogger()
     # set global log level
