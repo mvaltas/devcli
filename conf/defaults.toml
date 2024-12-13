@@ -22,3 +22,11 @@ account = "OUR_ACCOUNT_ID"
 # You can list your vaulst with `op vault list`
 # by default vault is set to 'Private'
 # vault = "Private"
+
+#############################
+# url command is a shortcut for URLs that you use often
+# each 'key' in this configuration is an alias
+# for the URL you want to use
+[devcli.commands.url]
+
+devcli = "https://github.com/mvaltas/devcli"
