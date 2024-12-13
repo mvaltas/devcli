@@ -1,3 +1,4 @@
+import copy
 import logging
 from pathlib import Path
 from typing import Any
@@ -18,7 +19,7 @@ class Config:
             cls._instance = super(Config, cls).__new__(cls, *args, **kwargs)
 
             cls._instance._config = {}  # init config holder empty
-            cls._instance._audit = []  # history of what was loaded
+            cls._instance._audit = {}  # history of what was loaded
 
             cls.logger.info("loading default configuration locations")
             # load defaults from devcli package
@@ -33,7 +34,7 @@ class Config:
             with open(config_file) as file:
                 self.logger.debug(f"loading {config_file} data")
                 config_contents = toml.load(file)
-                self._audit.append({config_file: config_contents})
+                self._audit[config_file] = copy.deepcopy(config_contents)
                 self.logger.debug(f"configuration contents: {config_contents}")
                 self.merge_update(self._config, config_contents)
         else:
