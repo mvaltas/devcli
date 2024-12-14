@@ -7,7 +7,8 @@ work.
 import sys
 
 import typer
-from rich import print
+
+from devcli.framework.console import error
 
 
 def new(description: str = None) -> typer.Typer:
@@ -17,36 +18,6 @@ def new(description: str = None) -> typer.Typer:
     :returns: a typer.Typer
     """
     return typer.Typer(help=description, no_args_is_help=True)
-
-
-def echo(msg: str):
-    """
-    Just print a message into the terminal.
-    It uses rich.print() which allows for color tagging like [red]message[/red].
-    :param msg: A str with the message
-    """
-    print(msg)
-
-
-def error(msg: str):
-    """
-    Print a message in red
-    """
-    print(f"[red]{msg}[/red]")
-
-
-def warn(msg: str):
-    """
-    Prints a message in yellow
-    """
-    print(f"[yellow]{msg}[/yellow]")
-
-
-def info(msg: str):
-    """
-    Prints a message in cyan
-    """
-    print(f"[cyan]{msg}[/cyan]")
 
 
 def stop(msg: str, exit_code: int = 1):

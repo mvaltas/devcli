@@ -1,5 +1,5 @@
-from .base import new, warn, error, echo, info, stop
+from .base import new, stop
 
-_base = ["new", "echo", "warn", "error", "echo", "info", "stop"]
+from .console import echo, info, warn, error
 
-__all__ = _base
+__all__ = ["new", "echo", "warn", "error", "echo", "info", "stop"]
