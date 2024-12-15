@@ -61,9 +61,18 @@ class Config:
     def audit(self):
         """
         Returns a list with the files and content that was loaded
-        into the configuration object for debug purposes
+        into the configuration object from each file. The Config
+        object itself keeps a merged version of the configuration
+        and should be used for fetching values.
         """
-        return self._audit
+        return copy.deepcopy(self._audit)
+
+    def files(self):
+        """
+        Returns the files that were loaded into configuration.
+        :return: List[Path]
+        """
+        return list(self.audit().keys())
 
     def __getitem__(self, item: str) -> Any:
         self.logger.debug(f"getitem:{item}")
