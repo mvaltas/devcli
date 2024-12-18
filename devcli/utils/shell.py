@@ -11,6 +11,7 @@ from rich.console import Console
 
 logger = logging.getLogger(__name__)
 
+
 def styled_text(text: str, sty: str = None, end: str = ""):
     out = StringIO()
     console = Console(file=out, force_terminal=True)
@@ -80,22 +81,28 @@ def iter_for(commands):
 def run(command: Union[str, List[str], dict], cwd: str = os.curdir):
     """
     A basic shell execution that will execute the command and directly
-    output its messages.
-    It won't capture the output and calling this is a run and forget.
-    If a list of commands is given it will attempt to execute each one
-    in order and will stop as soon a command fails.
-    Similar to what `cmd1; cmd2; cmd3` would do in shell.
+    output its messages. It won't capture the output and calling this
+    is a run and forget.
+
+    If more than one command is given, in a list or a dict format they
+    will be fired in order but immediately sent to the background.
+    The outputs will be collected in the order they return from
+    the commands.
     """
+    results = {}
     procs = []
     for alias, cmd in iter_for(command):
         process = create_process(cmd, cwd)
+        results.update({process.pid: {"alias": alias}})
         thread = start_process_thread(
             process, styled_text(f"{alias}", f"color({random.randint(1, 231)})")
         )
         procs.append((process, thread))
     for proc, thread in procs:
-        proc.wait()
+        results[proc.pid]["exitcode"] = proc.wait()
         thread.join()
+
+    return promote_value_to_key(results, new_key="alias", new_value="pid")
 
 
 def capture(command: str) -> str:
@@ -108,6 +115,29 @@ def capture(command: str) -> str:
     result = subprocess.run(final_command, shell=True, capture_output=True, text=True)
     logging.debug(f"return code: {result.returncode}")
     return result.stdout
+
+
+def promote_value_to_key(nested_dict: dict, new_key: str, new_value: str) -> dict:
+    """This function works on a dict which has values that are also dicts.
+    It will swap a value of the nested dict and add the key as a value.
+    It works with the assumption that the values that can be accessed
+    on 'new_key' are unique enough to become keys on the dict, if
+    not data will be lost during the transformation.
+
+    Example:
+        { 123: {"alias": "cmd1", "code": "111" },
+          456: {"alias": "cmd2", "code": "222" }}
+        transform with new_key="alias", new_value="pid" results in
+        { "cmd1": { "pid": 123, "code": "111" },
+          "cmd2": { "pid": 456, "code": "222" }}
+    """
+    transformed_dict = {}
+    for key, value in nested_dict.items():
+        nk_key = value.pop(new_key)
+        if nk_key not in transformed_dict:
+            transformed_dict[nk_key] = {}
+        transformed_dict[nk_key].update({new_value: key, **value})
+    return transformed_dict
 
 
 class ShellExecutable:
