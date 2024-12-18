@@ -9,6 +9,7 @@ from typing import Union, List
 
 from rich.console import Console
 
+logger = logging.getLogger(__name__)
 
 def styled_text(text: str, sty: str = None, end: str = ""):
     out = StringIO()
@@ -21,14 +22,15 @@ def _prepare_command(command):
     quoted_command = shlex.quote(command)
     # attempt to use user's shell, fallback to /bin/sh
     user_shell = os.environ.get("SHELL", "/bin/sh")
+    logger.debug(f"resolving shell to: {user_shell}")
     final_command = f"{user_shell} -c {quoted_command}"
     return final_command
 
 
 def create_process(command: str, cwd: str = os.curdir):
-    logging.info(f"run:{command}")
+    logger.info(f"create process for: {command}")
     final_command = _prepare_command(command)
-    logging.debug(f"final_command: {final_command}")
+    logger.debug(f"about to execute: {final_command}")
     proc = subprocess.Popen(
         final_command,
         shell=True,
@@ -63,6 +65,7 @@ def iter_for(commands):
     Will return an iterable in the form of k,v for
     any str in a list, dict or purely a str
     """
+    logger.debug(f"creating iterator for: {commands}")
     if isinstance(commands, list):
         return enumerate(commands)
     elif isinstance(commands, dict):
@@ -81,7 +84,7 @@ def run(command: Union[str, List[str], dict], cwd: str = os.curdir):
     It won't capture the output and calling this is a run and forget.
     If a list of commands is given it will attempt to execute each one
     in order and will stop as soon a command fails.
-    Similar to what `cmd1 && cmd2 && cmd3` would do in shell.
+    Similar to what `cmd1; cmd2; cmd3` would do in shell.
     """
     procs = []
     for alias, cmd in iter_for(command):
