@@ -1,0 +1,12 @@
+
+task default: %w[serve]
+
+task :serve do
+  # starts the jekyll server and open the browser
+  sh 'bundle exec jekyll serve -o'
+end
+
+task :doctor do
+  # runs the jekyll doctor command
+  sh 'bundle exec jekyll doctor'
+end
