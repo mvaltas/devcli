@@ -23,6 +23,8 @@ description: >-
   devcli is a command line tool to create command line
   tools.
 
+logo: /assets/img/logo.png
+
 # Build settings
 theme: jekyll-theme-minimal
 
