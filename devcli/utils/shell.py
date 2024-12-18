@@ -64,7 +64,7 @@ def iter_for(commands):
     any str in a list, dict or purely a str
     """
     if isinstance(commands, list):
-        return enumerate(list)
+        return enumerate(commands)
     elif isinstance(commands, dict):
         return commands.items()
     else:
