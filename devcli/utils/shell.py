@@ -31,7 +31,7 @@ def _prepare_command(command):
 def create_process(command: str, cwd: str = os.curdir):
     logger.info(f"create process for: {command}")
     final_command = _prepare_command(command)
-    logger.debug(f"about to execute: {final_command}")
+    logger.debug(f"about to execute: {final_command}, on: {cwd}")
     proc = subprocess.Popen(
         final_command,
         shell=True,
@@ -105,15 +105,18 @@ def run(command: Union[str, List[str], dict], cwd: str = os.curdir):
     return promote_value_to_key(results, new_key="alias", new_value="pid")
 
 
-def capture(command: str) -> str:
+def capture(command: str, cwd: str = os.curdir) -> str:
     """
     A run which captures the output and returns it, it won't display the stdout
     of the command during its execution.
     """
-    logging.debug(f"running shell: {command}")
+    logger.debug(f"running shell: {command}")
     final_command = _prepare_command(command)
-    result = subprocess.run(final_command, shell=True, capture_output=True, text=True)
-    logging.debug(f"return code: {result.returncode}")
+    logger.debug(f"about to execute: {final_command}, on: {cwd}")
+    result = subprocess.run(
+        final_command, cwd=cwd, shell=True, capture_output=True, text=True
+    )
+    logger.debug(f"return code: {result.returncode}")
     return result.stdout
 
 
