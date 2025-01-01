@@ -32,8 +32,8 @@ def display_urls(urls: dict):
         cmd.echo(f"{k:<{max_key_length}}: {v}")
 
 
-@cli.command()
-def open(ctx: Context, key: str):
+@cli.command("open")
+def url_open(ctx: Context, key: str):
     """
     Open a URL from the configuration
     """
@@ -45,8 +45,8 @@ def open(ctx: Context, key: str):
     shell.run(f"open '{url}'")
 
 
-@cli.command()
-def list(ctx: Context):
+@cli.command("list")
+def url_list(ctx: Context):
     """
     List all the URLs in the configuration
     """
