@@ -10,3 +10,6 @@ devcli = "https://github.com/mvaltas/devcli"
 google = "https://google.com"
 duck   = "https://duckduckgo.com"
 bing   = "https://bing.com"
+
+[decli.commands.edit]
+

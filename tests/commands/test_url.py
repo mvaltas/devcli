@@ -6,7 +6,7 @@ from devcli.framework.errors import MissConfError
 
 
 @pytest.fixture(autouse=True)
-def setup(setup_cmd):
+def setup(devcli_cmd):
     from devcli.config import Config
     from devcli.core import project_root
 
@@ -14,7 +14,7 @@ def setup(setup_cmd):
     Config().add_config(project_root("tests/fixtures/general.toml"))
 
     global url
-    url = setup_cmd("url")
+    url = devcli_cmd("url")
 
 
 def test_list():

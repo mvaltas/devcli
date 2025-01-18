@@ -13,7 +13,7 @@ def invoke_command(cmd: str = None):
 
 
 @pytest.fixture
-def setup_cmd():
+def devcli_cmd():
     """
     This fixture allows for reusing of invoke_command on Typer tests, in the tests
     you can set up without having to worry about the invoke or CliRunner()

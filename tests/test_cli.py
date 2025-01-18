@@ -4,9 +4,9 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
-def setup(setup_cmd):
+def setup(devcli_cmd):
     global devcli
-    devcli = setup_cmd()
+    devcli = devcli_cmd()
 
 
 def test_version():

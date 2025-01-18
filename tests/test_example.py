@@ -2,9 +2,9 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
-def setup(setup_cmd):
+def setup(devcli_cmd):
     global example
-    example = setup_cmd("example")
+    example = devcli_cmd("example")
 
 
 def test_ping():
