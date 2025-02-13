@@ -16,7 +16,7 @@ def test_version():
 
 def test_default_to_help_if_command_not_found():
     result = devcli()
-    assert "Usage: main [OPTIONS] COMMAND [ARGS]" in result.output
+    assert "Usage: devcli [OPTIONS] COMMAND [ARGS]" in result.output
 
 
 def test_passing_debug_changes_loglevel_to_debug(caplog):

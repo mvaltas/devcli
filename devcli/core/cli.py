@@ -12,7 +12,7 @@ from devcli.core import (
     load_dynamic_commands,
 )
 
-cli = typer.Typer(add_completion=False)
+cli = typer.Typer(add_completion=False, name="devcli")
 
 # config is a singleton to be
 # available to all parts of the system

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from typer import Typer
 
-LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+LOG_FORMAT = "%(asctime)s - %(name)s:%(lineno)d - %(levelname)s - %(message)s"
 
 DEVCLI_LOGLEVEL = os.environ.get("DEVCLI_LOGLEVEL", "WARNING")
 

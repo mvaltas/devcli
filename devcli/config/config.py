@@ -23,7 +23,9 @@ class Config:
 
             cls.logger.info("loading default configuration locations")
             # load defaults from devcli package
-            cls._instance.add_config(project_root() / "conf" / "defaults.toml")
+            cls._instance.add_config(
+                project_root() / "devcli" / "conf" / "defaults.toml"
+            )
             # load global user config it can override defaults.toml
             cls._instance.add_config(XDG_CONFIG_HOME / "devcli" / "devcli.toml")
 
