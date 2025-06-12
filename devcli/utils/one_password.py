@@ -14,7 +14,7 @@ class OnePassword(ShellExecutable):
 
     def read(self, key: str) -> str:
         self.logger.debug(f"read key={key}")
-        return capture(f"op read {self.account} op://{key}").rstrip("\n")
+        return capture(f"op read {self.account} 'op://{key}'").rstrip("\n")
 
     def credential(self, key: str) -> str:
         return self.read(f"{self.vault}/{key}/credential")

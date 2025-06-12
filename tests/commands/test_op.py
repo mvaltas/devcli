@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 
 
@@ -7,11 +9,23 @@ def setup(devcli_cmd):
     op = devcli_cmd("op")
 
 
-def test_password():
-    result = op("password", "--account", "personal", "devcli-test")
-    assert result.output in "this-is-a-test-password\n"
+@patch("devcli.utils.one_password.capture")
+def test_password(mock_capture):
+    op("password", "--account", "personal", "devcli-test")
+
+    mock_capture.assert_called_once()
+    call_args = mock_capture.call_args[0][0]
+
+    assert "op read --account" in call_args
+    assert "op://Private/devcli-test/password"
 
 
-def test_credentials():
-    result = op("credential", "--account", "personal", "devcli-test-api")
-    assert result.output in "some-sensitive-api-value\n"
+@patch("devcli.utils.one_password.capture")
+def test_credentials(mock_capture):
+    op("credential", "--account", "personal", "devcli-test-api")
+
+    mock_capture.assert_called_once()
+    call_args = mock_capture.call_args[0][0]
+
+    assert "op read --account" in call_args
+    assert "op://Private/devcli-test-api/credential" in call_args
