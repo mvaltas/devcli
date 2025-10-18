@@ -10,18 +10,20 @@ def test_new_creates_typer_instance():
 
 
 def test_stop_prints_error_and_exits():
-    with patch("devcli.framework.console.error") as mock_error, patch(
-        "sys.exit"
-    ) as mock_exit:
+    with (
+        patch("devcli.framework.console.error") as mock_error,
+        patch("sys.exit") as mock_exit,
+    ):
         base.stop("Custom error message", 2)
         mock_error.assert_called_once_with("Custom error message")
         mock_exit.assert_called_once_with(2)
 
 
 def test_stop_has_default_error_message():
-    with patch("devcli.framework.console.error") as mock_error, patch(
-        "sys.exit"
-    ) as mock_exit:
+    with (
+        patch("devcli.framework.console.error") as mock_error,
+        patch("sys.exit") as mock_exit,
+    ):
         base.stop(exit_code=2)
         mock_error.assert_called_once_with("Error")
         mock_exit.assert_called_once_with(2)

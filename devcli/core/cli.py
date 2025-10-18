@@ -38,7 +38,7 @@ def show_version():
     :return: tool.poetry.version
     """
     project_conf = boot_conf.add_config(project_root("pyproject.toml"))
-    print(f"devcli version {project_conf['tool.poetry.version']}")
+    print(f"devcli version {project_conf['project.version']}")
 
 
 @cli.command(hidden=True)

@@ -1,17 +1,17 @@
 @test *options: lint
-  poetry run pytest {{options}}
+  uv run pytest {{options}}
 
 @lint:
-  poetry run black . --check --diff --color
+  uv run black . --check --diff --color
 
 @format:
-  poetry run black .
+  uv run black .
 
 @update:
-  poetry update
+  uv sync --upgrade
 
 @build:
-  poetry build --format=wheel
+  uv build --wheel
 
 @install: build
   pipx install --force dist/devcli*.whl
