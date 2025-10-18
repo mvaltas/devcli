@@ -1,13 +1,21 @@
 from rich import print
+from rich import json as rjson
 
 
-def echo(msg: str):
+def echo(msg: str, *args, **kwargs):
     """
     Just print a message into the terminal.
     It uses rich.print() which allows for color tagging like [red]message[/red].
     :param msg: A str with the message
     """
-    print(msg)
+    print(msg, *args, **kwargs)
+
+
+def json(msg: str):
+    """
+    Print a json result
+    """
+    print(rjson.JSON(msg))
 
 
 def error(msg: str):

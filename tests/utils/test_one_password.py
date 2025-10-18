@@ -79,6 +79,17 @@ def test_read_strips_newline_from_result(mock_capture, one_password):
     assert not result.endswith("\n")
 
 
+@patch("devcli.utils.one_password.capture")
+def test_item_get(mock_capture, one_password):
+
+    one_password.item_get(item="test-item", fields="password")
+
+    mock_capture.assert_called_once_with(
+        "op items get --account test-account --vault 'TestVault' "
+        "--reveal --fields='password' test-item"
+    )
+
+
 @patch("devcli.utils.one_password.OnePassword.logger")
 @patch("devcli.utils.one_password.capture")
 def test_logging_debug_messages(mock_capture, mock_logger, one_password):

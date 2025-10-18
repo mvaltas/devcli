@@ -24,3 +24,10 @@ class OnePassword(ShellExecutable):
 
     def login(self, item: str) -> str:
         return self.read(f"{self.vault}/{item}/login")
+
+    def item_get(self, item: str, fields: str = "password") -> str:
+        self.logger.debug(f"item_get with item={item} fields={fields}")
+        return capture(
+            f"op items get {self.account} --vault '{self.vault}' "
+            f"--reveal --fields='{fields}' {item}"
+        )

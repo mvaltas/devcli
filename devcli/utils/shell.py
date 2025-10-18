@@ -78,7 +78,28 @@ def iter_for(commands):
         return iter_for({alias: commands})
 
 
-def run(command: Union[str, List[str], dict], cwd: str = os.curdir):
+def interactive(command: str, cwd: str = os.curdir):
+    """
+    Will spawn the command for interactive shell session
+    """
+    logger.debug(f"running shell: {command}")
+    final_command = _prepare_command(command)
+    logger.debug(f"about to execute: {final_command}, on: {cwd}")
+    proc = subprocess.Popen(
+        final_command,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        env=os.environ,
+        cwd=cwd,
+        bufsize=1,
+        universal_newlines=True,
+        text=True,
+    )
+    return proc
+
+
+def run(command: Union[str, List[str], dict], cwd: str = os.curdir) -> dict:
     """
     A basic shell execution that will execute the command and directly
     output its messages. It won't capture the output and calling this
