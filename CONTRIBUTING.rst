@@ -36,7 +36,7 @@ Principles behind devcli
   provide the features necessary to help create and diagnose these interfaces,
   rather than functioning as the system itself.
 
-- **Disposability**: Under any circumstance, the system which *devcli* interfaces should rely on it to work.
+- **Disposability**: Under any circumstance, the system which *devcli* interfaces should not rely on it to work.
   It is meant to help developers, not to be the part of the system. Removing it should not be detrimental
-  to the system.
+  to the system itself.
 
