@@ -14,35 +14,35 @@ you can use [`homebrew`](https://brew.sh/) to install them. You also can use
 
 
 ```bash
-$ brew install uv
-$ brew install pipx
-$ brew install just # optional
+brew install uv
+brew install pipx
+brew install just # optional
 ```
 
 Once you have them installed, you can install `devcli` locally by cloning the
 repository and running the following commands, like so:
 
 ```bash
-$ git clone https://github.com/mvaltas/devcli.git
-$ cd devcli
-$ uv build --wheel
-$ pipx install --force dist/devcli*.whl
+git clone https://github.com/mvaltas/devcli.git
+cd devcli
+uv build --wheel
+pipx install --force dist/devcli*.whl
 ```
 
 When installing with `pipx` the default target will be:
 
 ```bash
-${HOME}/.local/pipx/venvs/devcli/bin/devcli
+ls ${HOME}/.local/pipx/venvs/devcli/bin/devcli
 ```
 
 You can add this directory to your path, like so:
 ```bash
-$ export PATH=${PATH}:${HOME}/.local/pipx/venvs/devcli/bin
+export PATH=${PATH}:${HOME}/.local/pipx/venvs/devcli/bin
 ```
 
 You can refresh your command hash by:
 ```bash
-$ hash -r
+hash -r
 ```
 
 
