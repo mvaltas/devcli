@@ -2,27 +2,49 @@
 layout: default
 ---
 
-Welcome to the **devcli** documentation site! Since this tool aims to simplify
-the development process, we need to ensure it's easy to use and understand.
+Welcome to the **devcli** documentation site! This tool aims to simplify the
+development process, so we want to make sure it's easy to use and understand.
 
 ## Installation
 
-Installation can be done using Python tools [`poetry`](https://python-poetry.org/docs/#installation)
-and [`pipx`](https://pypi.org/project/pipx/). If you don't have them installed, you can use [`homebrew`](https://brew.sh/) to install them.
+Installation can be done using Python tools [`uv`](https://docs.astral.sh/uv/)
+and [`pipx`](https://pypi.org/project/pipx/). If you don't have them installed,
+you can use [`homebrew`](https://brew.sh/) to install them. You also can use
+[`just`](https://github.com/casey/just) for some helpful shortcuts in development.
+
 
 ```bash
-$ brew install poetry
+$ brew install uv
 $ brew install pipx
+$ brew install just # optional
 ```
 
-Once you have them installed, you can install `devcli` by cloning the repository and running the following commands, like so:
+Once you have them installed, you can install `devcli` locally by cloning the
+repository and running the following commands, like so:
 
 ```bash
 $ git clone https://github.com/mvaltas/devcli.git
 $ cd devcli
-$ poetry build --format=wheel
+$ uv build --wheel
 $ pipx install --force dist/devcli*.whl
 ```
+
+When installing with `pipx` the default target will be:
+
+```bash
+${HOME}/.local/pipx/venvs/devcli/bin/devcli
+```
+
+You can add this directory to your path, like so:
+```bash
+$ export PATH=${PATH}:${HOME}/.local/pipx/venvs/devcli/bin
+```
+
+You can refresh your command hash by:
+```bash
+$ hash -r
+```
+
 
 ## Usage
 

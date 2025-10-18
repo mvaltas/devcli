@@ -20,3 +20,9 @@
   devcli example ping
   -devcli show-version
   -devcli show-config
+
+@bundle:
+  cd docs; bundle
+
+@docs: bundle
+  cd docs; rake

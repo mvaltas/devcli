@@ -25,8 +25,7 @@ description: >-
 
 logo: /assets/img/logo.png
 
-# Build settings
-theme: jekyll-theme-minimal
+theme: just-the-docs
 
 exclude:
   - CNAME
@@ -38,3 +37,7 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+
+search_enabled: false
+nav_enabled: true
+color_scheme: dark
