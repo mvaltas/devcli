@@ -141,6 +141,24 @@ def capture(command: str, cwd: str = os.curdir) -> str:
     return result.stdout
 
 
+def passthrough(command: str, cwd: str = os.curdir) -> int:
+    """
+    Execute command with minimal interference, won't capture
+    the output nor it can run things in parallel
+    """
+    logger.debug(f"running shell passthrough: {command}")
+    final_command = _prepare_command(command)
+    logger.debug(f"about to execute: {final_command}, on: {cwd}")
+    result = subprocess.run(
+        final_command,
+        shell=True,
+        cwd=cwd,
+        env=os.environ,
+    )
+    logger.debug(f"return code: {result.returncode}")
+    return result.returncode
+
+
 def promote_value_to_key(nested_dict: dict, new_key: str, new_value: str) -> dict:
     """This function works on a dict which has values that are also dicts.
     It will swap a value of the nested dict and add the key as a value.

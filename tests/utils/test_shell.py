@@ -43,6 +43,11 @@ def test_in_multi_run_is_possible_to_collect_exitcode():
     assert results[1]["exitcode"] == 222
 
 
+def test_passthrough_just_execute_without_capture():
+    result = shell.passthrough("exit 255")
+    assert result == 255
+
+
 def test_result_transform_dict():
     orig = {
         123: {"alias": "cmd1", "code": "111"},

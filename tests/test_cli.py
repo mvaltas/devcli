@@ -44,7 +44,22 @@ def test_should_load_dynamic_commands():
     # of the project, tests of the subcommand 'example' itself
     # are in test_example.py
     result = devcli("example")
-    assert "ping" in result.output
+    assert "config" in result.output
+
+
+def test_help_lists_subcommands_in_alphabetical_order():
+    result = devcli("example")
+    subcommands = ["│ config", "│ hello", "│ ping", "│ text"]
+    index = 0  # order of the commands
+    # per line, mark each found subcommand
+    # if we can mark all they were in order
+    for line in result.output.split("\n"):
+        print(f"index: {index} line:{line}")
+        if index < len(subcommands) and subcommands[index] in line:
+            index += 1
+
+    # Found all subcommands in order we got to 4 index
+    assert index == 4
 
 
 def test_show_config():

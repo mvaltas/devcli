@@ -1,4 +1,4 @@
-@test *options: lint
+@test *options: format
   uv run pytest {{options}}
 
 @lint:

@@ -12,6 +12,7 @@ import typer
 import inspect
 
 import devcli.framework.console as console
+from devcli.core.cli import OrderedGroup
 
 _logger = logging.getLogger()
 
@@ -23,7 +24,7 @@ def new(description: str = None) -> typer.Typer:
     :returns: a typer.Typer
     """
     _logger.info(f"creating new command description:{description}")
-    return typer.Typer(help=description, no_args_is_help=True)
+    return typer.Typer(help=description, no_args_is_help=True, cls=OrderedGroup)
 
 
 def stop(msg: str = "Error", exit_code: int = 1):
