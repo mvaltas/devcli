@@ -33,7 +33,7 @@ for d in reversed(traverse_search(".devcli")):
 if boot_conf["devcli.enable_builtin_commands"]:
     load_dynamic_commands(cli, project_root("devcli/commands"))
 
-# load use defined commands
+# load user defined commands
 traverse_load_dynamic_commands(cli, ".devcli")
 
 
