@@ -3,6 +3,7 @@ import logging
 import typer
 from rich import print
 from typer import Context
+from typer.core import TyperGroup
 
 from devcli.config import Config
 from devcli.core import (
@@ -12,7 +13,13 @@ from devcli.core import (
     load_dynamic_commands,
 )
 
-cli = typer.Typer(add_completion=False, name="devcli")
+
+class OrderedGroup(TyperGroup):
+    def list_commands(self, ctx):
+        return sorted(self.commands)
+
+
+cli = typer.Typer(add_completion=False, name="devcli", cls=OrderedGroup)
 
 # config is a singleton to be
 # available to all parts of the system
@@ -35,7 +42,7 @@ def show_version():
     """
     Show devcli version which is defined in pyproject.toml file
 
-    :return: tool.poetry.version
+    :return: project.version
     """
     project_conf = boot_conf.add_config(project_root("pyproject.toml"))
     print(f"devcli version {project_conf['project.version']}")
