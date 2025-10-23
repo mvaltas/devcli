@@ -31,6 +31,11 @@ def test_hello_text_example():
         "This is a cmd.info(msg)\n"
         "This is a cmd.warn(msg)\n"
         "This is a cmd.error(msg)\n"
+        "┌────────────────┬────────────────┐\n"
+        "│ This is        │ a simple table │\n"
+        "├────────────────┼────────────────┤\n"
+        "│ With one value │ and another    │\n"
+        "└────────────────┴────────────────┘\n"
     )
     assert result.output in expected_output
 

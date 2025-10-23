@@ -38,6 +38,12 @@ def text():
     cmd.info("This is a cmd.info(msg)")
     cmd.warn("This is a cmd.warn(msg)")
     cmd.error("This is a cmd.error(msg)")
+    # Simple table
+    table = [
+        ["This is", "a simple table"],
+        ["With one value", "and another"],
+    ]
+    cmd.table(table)
 
 
 @cli.command()

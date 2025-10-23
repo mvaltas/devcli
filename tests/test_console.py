@@ -37,3 +37,23 @@ def test_warn(mock_print):
 def test_error(mock_print):
     console.error(MESSAGE)
     assert_print(mock_print, color="red")
+
+
+def test_simple_grid(mock_print):
+    grid = [["Row A", "Row B"]]
+    console.table(grid)
+
+    argument = mock_print.call_args.args[0]
+    full_name = ".".join([argument.__module__, argument.__class__.__name__])
+
+    assert full_name == "rich.table.Table"
+
+
+def test_simple_table(mock_print):
+    grid = [["Col A", "Col B"], ["Row A", "Row B"]]
+    console.table(grid)
+
+    argument = mock_print.call_args.args[0]
+    full_name = ".".join([argument.__module__, argument.__class__.__name__])
+
+    assert full_name == "rich.table.Table"
