@@ -44,7 +44,7 @@ def info(msg: str):
 
 
 def banner(msg: str):
-    """ Uses a table to make a boxed banner """
+    """Uses a table to make a boxed banner"""
     table([[msg]], True)
 
 
@@ -60,7 +60,7 @@ def table(table: List[List[str]] = [[]], as_grid: bool = False):
             ["Row 2A", "Row 2B"]
         ]
 
-    as_grid: bool 
+    as_grid: bool
     """
     rich_table = None
     table_copy = table.copy()  # avoid altering param

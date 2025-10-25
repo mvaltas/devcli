@@ -18,3 +18,10 @@ def setup(devcli_cmd):
 def test_get():
     result = config("get", "devcli.key")
     assert "value" in result.output
+
+
+def test_get_all():
+    result = config("get-all")
+    # test only a couple topics
+    assert "[devcli]" in result.output
+    assert "[devcli.commands.url]" in result.output
