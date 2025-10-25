@@ -30,13 +30,14 @@ Principles behind devcli
   of the command.
 
 - **Proximity**: Information on how to work with a system should be close to the system
-  itself.
+  itself. That why '.devcli' is he mechanics of extending, each system automation can
+  define their own commands.
 
 - **Interfacing**: *devcli* serves as an interface to other systems. As such, it should
   provide the features necessary to help create and diagnose these interfaces,
   rather than functioning as the system itself.
 
-- **Disposability**: Under any circumstance, the system which *devcli* interfaces should not rely on it to work.
-  It is meant to help developers, not to be the part of the system. Removing it should not be detrimental
-  to the system itself.
-
+- **Disposability**: Removing it should not be detrimental to the system itself.
+  Under any circumstance, the system which *devcli* interfaces with should not rely on 
+  it to work. This tool is meant to help developers, not to be the part of the 
+  system it automates. 
