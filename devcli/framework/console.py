@@ -43,6 +43,11 @@ def info(msg: str):
     print(f"[cyan]{msg}[/cyan]")
 
 
+def banner(msg: str):
+    """ Uses a table to make a boxed banner """
+    table([[msg]], True)
+
+
 def table(table: List[List[str]] = [[]], as_grid: bool = False):
     """
     Prints a simple table, for complex tables use rich.Table directly.
@@ -54,6 +59,8 @@ def table(table: List[List[str]] = [[]], as_grid: bool = False):
             ["Row 1A", "Row 1B"],
             ["Row 2A", "Row 2B"]
         ]
+
+    as_grid: bool 
     """
     rich_table = None
     table_copy = table.copy()  # avoid altering param

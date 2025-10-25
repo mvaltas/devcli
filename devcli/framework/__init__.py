@@ -1,6 +1,6 @@
 from .base import new, stop, logger
 
-from .console import echo, info, warn, error, json, table
+from .console import echo, info, warn, error, json, table, banner
 
 __all__ = [
     # from console
@@ -10,6 +10,7 @@ __all__ = [
     "error",
     "echo",
     "info",
+    "banner",
     "table",
     # from base
     "new",
