@@ -137,6 +137,7 @@ def capture(command: str, cwd: str = os.curdir) -> str:
     result = subprocess.run(
         final_command, cwd=cwd, shell=True, capture_output=True, text=True
     )
+    logger.debug(f"stderr: {result.stderr}")
     logger.debug(f"return code: {result.returncode}")
     return result.stdout
 

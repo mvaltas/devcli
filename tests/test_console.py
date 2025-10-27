@@ -8,7 +8,7 @@ MESSAGE = "Hello, World!"
 
 @pytest.fixture
 def mock_print():
-    with patch("devcli.framework.console.print") as mock:
+    with patch("devcli.framework.console.echo") as mock:
         yield mock
 
 
