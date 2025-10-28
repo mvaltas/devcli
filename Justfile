@@ -1,28 +1,31 @@
-@test *options: format
-  uv run pytest {{options}}
+test *options:
+  DEVCLI_LOGLEVEL=debug uv run pytest {{options}}
 
-@lint:
-  uv run black . --check --diff --color
+lint:
+ uv run black . --check --diff --color
 
-@format:
-  uv run black .
+format:
+ uv run black .
 
-@update:
-  uv sync --upgrade
+update:
+ uv sync --upgrade
 
-@build:
-  uv build --wheel
+build:
+ uv build --wheel
 
-@install: build
-  pipx install --force dist/devcli*.whl
+install: build
+ pipx install --force dist/devcli*.whl
 
-@check: install
-  devcli example ping
-  -devcli show-version
-  -devcli show-config
+check: install
+ devcli example ping
+ -devcli show-version
+ -devcli show-config
 
-@bundle:
-  cd docs; bundle
+bundle:
+ cd docs; bundle
 
-@docs: bundle
+docs: bundle
   cd docs; rake
+
+@run +commands:
+  - uv run python bin/devcli {{commands}}
