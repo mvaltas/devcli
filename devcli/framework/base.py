@@ -17,14 +17,14 @@ from devcli.core.cli import OrderedGroup
 _logger = logging.getLogger()
 
 
-def new(description: str = None) -> typer.Typer:
+def new(description: str = None, **kwargs) -> typer.Typer:
     """
     The base of starting a new dynamic command. It
     returns the basic Typer type for command declaration.
     :returns: a typer.Typer
     """
     _logger.info(f"creating new command description:{description}")
-    return typer.Typer(help=description, no_args_is_help=True, cls=OrderedGroup)
+    return typer.Typer(help=description, no_args_is_help=True, cls=OrderedGroup, **kwargs)
 
 
 def stop(msg: str = "Error", exit_code: int = 1):
