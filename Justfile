@@ -13,7 +13,7 @@ update:
 build:
  uv build --wheel
 
-install: build
+install: clean build
  pipx install --force dist/devcli*.whl
 
 check: install
@@ -26,6 +26,9 @@ bundle:
 
 docs: bundle
   cd docs; rake
+
+clean:
+  rm -f dist/devcli*.whl
 
 @run +commands:
   - uv run python bin/devcli {{commands}}
