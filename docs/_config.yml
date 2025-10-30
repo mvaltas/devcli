@@ -41,3 +41,8 @@ exclude:
 search_enabled: false
 nav_enabled: true
 color_scheme: dark
+
+aux_links:
+  devcli on GitHub:
+    - https://github.com/mvaltas/devcli
+
