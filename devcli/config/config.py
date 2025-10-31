@@ -35,10 +35,13 @@ class Config:
         if Path(config_file).is_file():
             with open(config_file) as file:
                 self.logger.debug(f"loading {config_file} data")
-                config_contents = toml.load(file)
-                self._audit[config_file] = copy.deepcopy(config_contents)
-                self.logger.debug(f"configuration contents: {config_contents}")
-                self.merge_update(self._config, config_contents)
+                try:
+                    config_contents = toml.load(file)
+                    self._audit[config_file] = copy.deepcopy(config_contents)
+                    self.logger.debug(f"configuration contents: {config_contents}")
+                    self.merge_update(self._config, config_contents)
+                except:
+                    self.logger.error(f"failed to load {config_file}, check syntax")
         else:
             self.logger.warning(f"{config_file} is not a file or does not exist")
 

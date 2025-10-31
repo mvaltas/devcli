@@ -14,9 +14,11 @@ def prep_editor(ctx: Context):
         """Open editor on file"""
         c_editor = ctx.obj["devcli.commands.edit.editor"]
         e_editor = os.getenv("EDITOR", "vim")
+        logger.info(f"env EDITOR={e_editor} config={c_editor}")
 
         # config first, env and last default
         editor = c_editor if c_editor else e_editor
+        logger.info(f"selected editor: {editor}")
 
         os.execvp(editor, [editor, file])
 
@@ -27,18 +29,23 @@ def prep_editor(ctx: Context):
 
 
 @cli.command()
-def config(ctx: Context):
+def config(ctx: Context, dry: bool = False):
+    """ Opens the most specific configuration """
     editor = prep_editor(ctx)
     configs = ctx.obj.files()
+    logger.info(f"Found these configurations: {configs}")
     if not configs:
         cmd.stop("No configuration files were found.")
-
-    # last file is the most specific one
-    editor(configs[-1])
+    elif dry:
+        cmd.info(f"Will edit: {configs[-1]}")
+    else:
+        # last file is the most specific one
+        editor(configs[-1])
 
 
 @cli.command("command")
 def edit_command(ctx: Context, name: str):
+    """ Opens the command [name] for edit """
     editor = prep_editor(ctx)
     configs = ctx.obj.files()
     p = Path(configs[-1]).parent

@@ -16,10 +16,10 @@ def setup(devcli_cmd):
 
 
 def test_edit_config_calls_editor(mock_exec):
-    result = edit("config")
+    edit("config")
     mock_exec.assert_called_once_with("nvim", ["nvim", ANY])
 
 
 def test_edit_command_calls_editor(mock_exec):
-    result = edit("command", "placeholder")
+    edit("command", "placeholder")
     mock_exec.assert_called_once_with("nvim", ["nvim", ANY])

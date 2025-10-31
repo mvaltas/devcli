@@ -1,0 +1,4 @@
+[devcli]
+
+# value without quotes breaks TOML
+key = value

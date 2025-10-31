@@ -77,3 +77,8 @@ def test_files_returns_files_loaded():
     conf.add_config(spec_config)
     # and now it is listed in files()
     assert spec_config in conf.files()
+
+
+def test_handles_error_parsing_config():
+    invalid_config = project_root("tests/fixtures/invalid.toml")
+    conf.add_config(invalid_config)
